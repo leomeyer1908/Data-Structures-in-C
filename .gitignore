@@ -1,0 +1,5 @@
+prog
+test.c
+.vscode
+prog.dSYM
+.DS_Store
