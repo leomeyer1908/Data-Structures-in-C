@@ -1,6 +1,6 @@
 #include "HashMap.h"
 
-static size_t hashFunc(int key, size_t capacity) {
+static size_t hashFunc(size_t key, size_t capacity) {
     return key % capacity;
 }
 
@@ -13,17 +13,17 @@ void initHashMap(HashMap* map, size_t initialCapacity) {
     }
 }
 
-void insertHashMap(HashMap* map, int key, void* value) {
+void insertHashMap(HashMap* map, size_t key, void* value) {
     double load_factor = (double) map->size/map->capacity;
     if (load_factor > 0.7) {
         size_t newCapacity = map->capacity*2;
         LinkedList* newArray = (LinkedList*) malloc(newCapacity*sizeof(LinkedList));
-        for (int i = 0; i < newCapacity; i++) {
+        for (size_t i = 0; i < newCapacity; i++) {
             initList(&newArray[i]);
         }
-        for (int i = 0; i < map->capacity; i++) {
+        for (size_t i = 0; i < map->capacity; i++) {
             for (Node* currentNode = map->array[i].head; currentNode != NULL; currentNode = currentNode->next) {
-                size_t index = hashFunc(*((int*) currentNode->value), newCapacity);
+                size_t index = hashFunc(*((size_t*) currentNode->value), newCapacity);
                 pushBackList(&map->array[index], currentNode->value);
             }
             destroyList(&map->array[i]);
@@ -41,8 +41,8 @@ void insertHashMap(HashMap* map, int key, void* value) {
     map->size++;
 }
 
-int updateHashMap(HashMap* map, int key, void* value) {
-    int index = hashFunc(key, map->capacity);
+int updateHashMap(HashMap* map, size_t key, void* value) {
+    size_t index = hashFunc(key, map->capacity);
     for (Node* currentNode = map->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
         if (((KeyValuePair*)currentNode->value)->key == key) {
             ((KeyValuePair*) currentNode->value)->value = value;
@@ -52,7 +52,7 @@ int updateHashMap(HashMap* map, int key, void* value) {
     return -1;
 }
 
-int containsHashMap(HashMap* map, int key) {
+int containsHashMap(HashMap* map, size_t key) {
     size_t index = hashFunc(key, map->capacity);
     for (Node* currentNode = map->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
         if (((KeyValuePair*)currentNode->value)->key == key) {
@@ -62,7 +62,7 @@ int containsHashMap(HashMap* map, int key) {
     return 0;
 }
 
-void* getHashMap(HashMap* map, int key) {
+void* getHashMap(HashMap* map, size_t key) {
     size_t index = hashFunc(key, map->capacity);
     for (Node* currentNode = map->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
         if (((KeyValuePair*)currentNode->value)->key == key) {
@@ -73,7 +73,7 @@ void* getHashMap(HashMap* map, int key) {
 }
 
 void destroyHashMap(HashMap* map) {
-    for (int i = 0; i < map->capacity; i++) {
+    for (size_t i = 0; i < map->capacity; i++) {
         if (map->array[i].head != NULL) {
             for (Node* currentNode = map->array[i].head; currentNode != NULL; currentNode = currentNode->next) {
                 free((KeyValuePair*)currentNode->value);
