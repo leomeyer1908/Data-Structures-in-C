@@ -14,6 +14,9 @@ void initHashSet(HashSet* set, size_t initialCapacity) {
 }
 
 void insertHashSet(HashSet* set, size_t key) {
+    if (containsHashSet(set, key)) {
+        return;
+    }
     double load_factor = (double) set->size/set->capacity;
     if (load_factor > 0.7) {
         size_t newCapacity = set->capacity*2;

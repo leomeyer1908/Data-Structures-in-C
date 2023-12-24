@@ -14,6 +14,10 @@ void initHashMap(HashMap* map, size_t initialCapacity) {
 }
 
 void insertHashMap(HashMap* map, size_t key, void* value) {
+    if (containsHashMap(map, key)) {
+        updateHashMap(map, key, value);
+        return;
+    }
     double load_factor = (double) map->size/map->capacity;
     if (load_factor > 0.7) {
         size_t newCapacity = map->capacity*2;
