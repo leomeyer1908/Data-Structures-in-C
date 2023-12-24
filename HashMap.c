@@ -24,7 +24,7 @@ void insertHashMap(HashMap* map, size_t key, void* value) {
         for (size_t i = 0; i < map->capacity; i++) {
             for (Node* currentNode = map->array[i].head; currentNode != NULL; currentNode = currentNode->next) {
                 size_t index = hashFunc(*((size_t*) currentNode->value), newCapacity);
-                pushBackList(&map->array[index], currentNode->value);
+                pushBackList(&newArray[index], currentNode->value);
             }
             destroyList(&map->array[i]);
         }

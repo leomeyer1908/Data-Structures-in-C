@@ -1,9 +1,6 @@
 #include "HashSet.h"
 
-
-
-
-static size_t hashFunc(int key, size_t capacity) {
+static size_t hashFunc(size_t key, size_t capacity) {
     return key % capacity;
 }
 
@@ -16,18 +13,18 @@ void initHashSet(HashSet* set, size_t initialCapacity) {
     }
 }
 
-void insertHashSet(HashSet* set, int key) {
+void insertHashSet(HashSet* set, size_t key) {
     double load_factor = (double) set->size/set->capacity;
     if (load_factor > 0.7) {
         size_t newCapacity = set->capacity*2;
         LinkedList* newArray = (LinkedList*) malloc(newCapacity*sizeof(LinkedList));
-        for (int i = 0; i < newCapacity; i++) {
+        for (size_t i = 0; i < newCapacity; i++) {
             initList(&newArray[i]);
         }
-        for (int i = 0; i < set->capacity; i++) {
+        for (size_t i = 0; i < set->capacity; i++) {
             for (Node* currentNode = set->array[i].head; currentNode != NULL; currentNode = currentNode->next) {
-                size_t index = hashFunc(*((int*) currentNode->value), newCapacity);
-                pushBackList(&set->array[index], currentNode->value);
+                size_t index = hashFunc((size_t) (uintptr_t) currentNode->value, newCapacity);
+                pushBackList(&newArray[index], currentNode->value);
             }
             destroyList(&set->array[i]);
         }
@@ -37,16 +34,14 @@ void insertHashSet(HashSet* set, int key) {
         set->capacity = newCapacity;
     }
     size_t index = hashFunc(key, set->capacity);
-    int* keyValue = (int*) malloc(sizeof(int)); 
-    *keyValue = key;
-    pushBackList(&(set->array[index]), (void*) keyValue);
+    pushBackList(&(set->array[index]), (void*) (uintptr_t) key);
     set->size++;
 }
 
-int containsHashSet(HashSet* set, int key) {
+int containsHashSet(HashSet* set, size_t key) {
     size_t index = hashFunc(key, set->capacity);
     for (Node* currentNode = set->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
-        if (*((int*)currentNode->value) == key) {
+        if ((size_t) (uintptr_t) currentNode->value == key) {
             return 1;
         }
     }
@@ -54,12 +49,7 @@ int containsHashSet(HashSet* set, int key) {
 }
 
 void destroyHashSet(HashSet* set) {
-    for (int i = 0; i < set->capacity; i++) {
-        if (set->array[i].head != NULL) {
-            for (Node* currentNode = set->array[i].head; currentNode != NULL; currentNode = currentNode->next) {
-                free((int*)currentNode->value);
-            }
-        }
+    for (size_t i = 0; i < set->capacity; i++) {
         destroyList(&set->array[i]);
     }
     free(set->array);
