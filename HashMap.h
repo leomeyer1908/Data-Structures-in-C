@@ -5,7 +5,7 @@
 #include "LinkedList.h"
 
 typedef struct KeyValuePair {
-    int key;
+    size_t key;
     void* value;
 } KeyValuePair;
 
@@ -16,14 +16,14 @@ typedef struct HashMap {
 } HashMap;
 
 void initHashMap(HashMap* map, size_t initialCapacity);
-void insertHashMap(HashMap* map, int key, void* value);
+void insertHashMap(HashMap* map, size_t key, void* value);
 
 //returns 0 if key exists, but returns -1 if it does not.
-int updateHashMap(HashMap* map, int key, void* value); 
-int containsHashMap(HashMap* map, int key);
+int updateHashMap(HashMap* map, size_t key, void* value); 
+int containsHashMap(HashMap* map, size_t key);
 
 //returns NULL if key does not exist.
-void* getHashMap(HashMap* map, int key); 
+void* getHashMap(HashMap* map, size_t key); 
 
 void destroyHashMap(HashMap* map);
 
