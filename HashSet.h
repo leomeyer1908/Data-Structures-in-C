@@ -14,6 +14,7 @@ typedef struct HashSet {
 void initHashSet(HashSet* set, size_t initialCapacity);
 void insertHashSet(HashSet* set, size_t key);
 int containsHashSet(HashSet* set, size_t key);
+void removeElementHashSet(HashSet* set, size_t key);
 void destroyHashSet(HashSet* set);
 
 #endif

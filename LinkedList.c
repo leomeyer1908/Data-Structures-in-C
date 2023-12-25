@@ -21,6 +21,28 @@ void pushBackList(LinkedList* list, void* value) {
     }
 }
 
+void removeElementList(LinkedList* list, void* value) {
+    if (list->head == NULL) {
+        return;
+    }
+    if (list->head->value == value) {
+        Node* head = list->head;
+        list->head = list->head->next;
+        free(head);
+        return;
+    }
+    Node* currentNode = list->head;
+    while (currentNode->next != NULL) {
+        Node* nextNode = currentNode->next;
+        if (nextNode->value == value) {
+            currentNode->next = nextNode->next;
+            free(nextNode);
+            break;
+        }
+        currentNode = nextNode;
+    }
+}
+
 void destroyList(LinkedList* list) {
     Node* currentNode = list->head;
     Node* nextNode;

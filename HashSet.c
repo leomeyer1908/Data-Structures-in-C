@@ -51,6 +51,14 @@ int containsHashSet(HashSet* set, size_t key) {
     return 0;
 }
 
+void removeElementHashSet(HashSet* set, size_t key) {
+    if (!containsHashSet(set, key)) {
+        return;
+    }
+    size_t index = hashFunc(key, set->capacity);
+    removeElementList(&set->array[index], (void*) (uintptr_t) key);
+}
+
 void destroyHashSet(HashSet* set) {
     for (size_t i = 0; i < set->capacity; i++) {
         destroyList(&set->array[i]);
