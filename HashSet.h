@@ -9,6 +9,7 @@ typedef struct HashSet {
     size_t size;
     size_t capacity; 
     LinkedList* array;
+    LinkedList keys;
 } HashSet;
 
 void initHashSet(HashSet* set, size_t initialCapacity);

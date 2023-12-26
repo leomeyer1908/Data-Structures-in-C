@@ -11,6 +11,7 @@ void initHashSet(HashSet* set, size_t initialCapacity) {
     for (size_t i = 0; i < initialCapacity; i++) {
         initList(&(set->array[i]));
     }
+    initList(&set->keys);
 }
 
 void insertHashSet(HashSet* set, size_t key) {
@@ -24,27 +25,32 @@ void insertHashSet(HashSet* set, size_t key) {
         for (size_t i = 0; i < newCapacity; i++) {
             initList(&newArray[i]);
         }
+
+        for (DoublyNode* currentNode = set->keys.head; currentNode != NULL; currentNode = currentNode->next) {
+            size_t index = hashFunc((size_t) (uintptr_t) currentNode->value, newCapacity);
+            pushBackList(&newArray[index], (void*) currentNode);
+        }
+
         for (size_t i = 0; i < set->capacity; i++) {
-            for (Node* currentNode = set->array[i].head; currentNode != NULL; currentNode = currentNode->next) {
-                size_t index = hashFunc((size_t) (uintptr_t) currentNode->value, newCapacity);
-                pushBackList(&newArray[index], currentNode->value);
-            }
             destroyList(&set->array[i]);
         }
         free(set->array);
-        set->array = newArray;
 
+        set->array = newArray;
         set->capacity = newCapacity;
     }
+
+    pushBackList(&set->keys, (void*) key);
+    DoublyNode* keyNode = set->keys.tail;
     size_t index = hashFunc(key, set->capacity);
-    pushBackList(&(set->array[index]), (void*) (uintptr_t) key);
+    pushBackList(&(set->array[index]), (void*) keyNode);
     set->size++;
 }
 
 int containsHashSet(HashSet* set, size_t key) {
     size_t index = hashFunc(key, set->capacity);
-    for (Node* currentNode = set->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
-        if ((size_t) (uintptr_t) currentNode->value == key) {
+    for (DoublyNode* currentNode = set->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
+        if ((size_t) (uintptr_t) ((DoublyNode*) currentNode->value)->value == key) {
             return 1;
         }
     }
@@ -56,7 +62,13 @@ void removeElementHashSet(HashSet* set, size_t key) {
         return;
     }
     size_t index = hashFunc(key, set->capacity);
-    removeElementList(&set->array[index], (void*) (uintptr_t) key);
+    for (DoublyNode* currentNode = set->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
+        if ((size_t) (uintptr_t) ((DoublyNode*) currentNode->value)->value == key) {
+            removeNodeFromList(&set->keys, (DoublyNode*) currentNode->value);
+            removeNodeFromList(&set->array[index], currentNode);
+            break;
+        }
+    }
 }
 
 void destroyHashSet(HashSet* set) {
@@ -64,6 +76,9 @@ void destroyHashSet(HashSet* set) {
         destroyList(&set->array[i]);
     }
     free(set->array);
+    destroyList(&set->keys);
+    set->capacity = 0;
+    set->size = 0;
 }
 
 

@@ -1,5 +1,5 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef DOUBLY_NODE_H
+#define DOUBLY_NODE_H
 
 #include <stdlib.h>
 
