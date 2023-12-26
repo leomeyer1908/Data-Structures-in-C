@@ -1,11 +1,11 @@
-#ifndef LINKED_LIST_H
-#define LINKED_LIST_H
+#ifndef SINGLY_LINKED_LIST_H
+#define SINGLY_LINKED_LIST_H
 
 #include <stdlib.h>
-#include "DoublyNode.h"
+#include "Node.h"
 
 typedef struct LinkedList {
-    DoublyNode* head;
+    Node* head;
 } LinkedList;
 
 void initList(LinkedList* list);

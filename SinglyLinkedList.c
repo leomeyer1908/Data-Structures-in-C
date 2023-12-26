@@ -1,4 +1,4 @@
-#include "LinkedList.h"
+#include "SinglyLinkedList.h"
 
 
 
@@ -7,18 +7,17 @@ void initList(LinkedList* list) {
 }
 
 void pushBackList(LinkedList* list, void* value) {
-    DoublyNode* newNode = getNewDoublyNode();
+    Node* newNode = getNewNode();
     newNode->value = value;
     if (list->head == NULL) {
         list->head = newNode;
     }
     else {
-        DoublyNode* currentNode = list->head;
+        Node* currentNode = list->head;
         while (currentNode->next != NULL) {
             currentNode = currentNode->next;
         }
         currentNode->next = newNode;
-        newNode->prev = currentNode;
     }
 }
 
@@ -27,31 +26,26 @@ void removeElementList(LinkedList* list, void* value) {
         return;
     }
     if (list->head->value == value) {
-        DoublyNode* head = list->head;
+        Node* head = list->head;
         list->head = list->head->next;
-        if (list->head != NULL) {
-            list->head->prev = NULL;
-        }
         free(head);
         return;
     }
-    DoublyNode* currentNode = list->head;
-    while (currentNode != NULL) {
-        if (currentNode->value == value) {
-            currentNode->prev->next = currentNode->next;
-            if (currentNode->next != NULL) {
-                currentNode->next->prev = currentNode->prev;
-            }
-            free(currentNode);
+    Node* currentNode = list->head;
+    while (currentNode->next != NULL) {
+        Node* nextNode = currentNode->next;
+        if (nextNode->value == value) {
+            currentNode->next = nextNode->next;
+            free(nextNode);
             break;
         }
-        currentNode = currentNode->next;
+        currentNode = nextNode;
     }
 }
 
 void destroyList(LinkedList* list) {
-    DoublyNode* currentNode = list->head;
-    DoublyNode* nextNode;
+    Node* currentNode = list->head;
+    Node* nextNode;
     while (currentNode != NULL) {
         nextNode = currentNode->next;
         free(currentNode);
