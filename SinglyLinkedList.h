@@ -4,17 +4,17 @@
 #include <stdlib.h>
 #include "Node.h"
 
-typedef struct LinkedList {
+typedef struct SinglyLinkedList {
     Node* head;
-} LinkedList;
+} SinglyLinkedList;
 
-void initList(LinkedList* list);
+void initSinglyList(SinglyLinkedList* list);
 
-void pushBackList(LinkedList* list, void* value);
+void pushBackSinglyList(SinglyLinkedList* list, void* value);
 
-void removeElementList(LinkedList* list, void* value);
+void removeElementSinglyList(SinglyLinkedList* list, void* value);
 
-void destroyList(LinkedList* list);
+void destroySinglyList(SinglyLinkedList* list);
 
 
 #endif
