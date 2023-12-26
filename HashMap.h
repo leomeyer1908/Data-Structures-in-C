@@ -29,6 +29,8 @@ int containsHashMap(HashMap* map, size_t key);
 //returns NULL if key does not exist.
 void* getHashMap(HashMap* map, size_t key); 
 
+void removeElementHashMap(HashMap* map, size_t key);
+
 void destroyHashMap(HashMap* map);
 
 #endif //HASH_MAP_H

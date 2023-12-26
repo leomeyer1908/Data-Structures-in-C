@@ -85,6 +85,22 @@ void* getHashMap(HashMap* map, size_t key) {
     return NULL;
 }
 
+void removeElementHashMap(HashMap* map, size_t key) {
+    if (!containsHashMap(map, key)) {
+        return;
+    }
+    size_t index = hashFunc(key, map->capacity);
+    for (DoublyNode* currentNode = map->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
+        if (((KeyValuePair*) ((DoublyNode*) currentNode->value)->value)->key == key) {
+            free((KeyValuePair*) ((DoublyNode*) currentNode->value)->value);
+            removeNodeFromList(&map->keyValuePairs, (DoublyNode*) currentNode->value);
+            removeNodeFromList(&map->array[index], currentNode);
+            map->size--;
+            break;
+        }
+    }
+}
+
 void destroyHashMap(HashMap* map) {
     for (size_t i = 0; i < map->capacity; i++) {
         destroyList(&map->array[i]);
