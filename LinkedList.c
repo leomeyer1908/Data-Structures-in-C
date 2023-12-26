@@ -24,23 +24,28 @@ void pushBackList(LinkedList* list, void* value) {
     }
 }
 
+void removeNodeFromList(LinkedList* list, DoublyNode* node) {
+    if (node->prev != NULL) {
+        node->prev->next = node->next;
+    } else {
+        list->head = node->next;
+    }
+
+    if (node->next != NULL) {
+        node->next->prev = node->prev;
+    } else {
+        list->tail = node->prev;
+    }
+
+    free(node);
+
+}
+
 void removeElementList(LinkedList* list, void* value) {
     DoublyNode* currentNode = list->head;
     while (currentNode != NULL) {
         if (currentNode->value == value) {
-            if (currentNode->prev != NULL) {
-                currentNode->prev->next = currentNode->next;
-            } else {
-                list->head = currentNode->next;
-            }
-
-            if (currentNode->next != NULL) {
-                currentNode->next->prev = currentNode->prev;
-            } else {
-                list->tail = currentNode->prev;
-            }
-
-            free(currentNode);
+            removeNodeFromList(list, currentNode);
             break;
         }
         currentNode = currentNode->next;
