@@ -15,6 +15,8 @@ void pushBackList(LinkedList* list, void* value);
 
 void removeElementList(LinkedList* list, void* value);
 
+void removeNodeFromList(LinkedList* list, DoublyNode* node);
+
 void destroyList(LinkedList* list);
 
 
