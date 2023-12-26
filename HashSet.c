@@ -66,6 +66,7 @@ void removeElementHashSet(HashSet* set, size_t key) {
         if ((size_t) (uintptr_t) ((DoublyNode*) currentNode->value)->value == key) {
             removeNodeFromList(&set->keys, (DoublyNode*) currentNode->value);
             removeNodeFromList(&set->array[index], currentNode);
+            set->size--;
             break;
         }
     }
