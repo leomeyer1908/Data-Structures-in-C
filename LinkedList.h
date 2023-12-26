@@ -6,6 +6,7 @@
 
 typedef struct LinkedList {
     DoublyNode* head;
+    DoublyNode* tail;
 } LinkedList;
 
 void initList(LinkedList* list);
