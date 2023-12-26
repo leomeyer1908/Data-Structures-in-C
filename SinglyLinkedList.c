@@ -2,11 +2,11 @@
 
 
 
-void initList(LinkedList* list) {
+void initSinglyList(SinglyLinkedList* list) {
     list->head = NULL;
 }
 
-void pushBackList(LinkedList* list, void* value) {
+void pushBackSinglyList(SinglyLinkedList* list, void* value) {
     Node* newNode = getNewNode();
     newNode->value = value;
     if (list->head == NULL) {
@@ -21,7 +21,7 @@ void pushBackList(LinkedList* list, void* value) {
     }
 }
 
-void removeElementList(LinkedList* list, void* value) {
+void removeElementSinglyList(SinglyLinkedList* list, void* value) {
     if (list->head == NULL) {
         return;
     }
@@ -43,7 +43,7 @@ void removeElementList(LinkedList* list, void* value) {
     }
 }
 
-void destroyList(LinkedList* list) {
+void destroySinglyList(SinglyLinkedList* list) {
     Node* currentNode = list->head;
     Node* nextNode;
     while (currentNode != NULL) {
