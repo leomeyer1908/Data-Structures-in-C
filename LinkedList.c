@@ -4,11 +4,13 @@
 
 void initList(LinkedList* list) {
     list->head = NULL;
+    list->tail = NULL;
 }
 
 void pushBackList(LinkedList* list, void* value) {
     DoublyNode* newNode = getNewDoublyNode();
     newNode->value = value;
+    list->tail = newNode;
     if (list->head == NULL) {
         list->head = newNode;
     }
@@ -23,25 +25,21 @@ void pushBackList(LinkedList* list, void* value) {
 }
 
 void removeElementList(LinkedList* list, void* value) {
-    if (list->head == NULL) {
-        return;
-    }
-    if (list->head->value == value) {
-        DoublyNode* head = list->head;
-        list->head = list->head->next;
-        if (list->head != NULL) {
-            list->head->prev = NULL;
-        }
-        free(head);
-        return;
-    }
     DoublyNode* currentNode = list->head;
     while (currentNode != NULL) {
         if (currentNode->value == value) {
-            currentNode->prev->next = currentNode->next;
+            if (currentNode->prev != NULL) {
+                currentNode->prev->next = currentNode->next;
+            } else {
+                list->head = currentNode->next;
+            }
+
             if (currentNode->next != NULL) {
                 currentNode->next->prev = currentNode->prev;
+            } else {
+                list->tail = currentNode->prev;
             }
+
             free(currentNode);
             break;
         }
@@ -59,5 +57,6 @@ void destroyList(LinkedList* list) {
     }
 
     list->head = NULL;
+    list->tail = NULL;
 }
 
