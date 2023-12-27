@@ -65,3 +65,23 @@ void destroyList(LinkedList* list) {
     list->tail = NULL;
 }
 
+void copyList(LinkedList* srcList, LinkedList* dstList) {
+	if (srcList->head != NULL) {
+		DoublyNode* dstNode = getNewDoublyNode();
+		dstList->head = dstNode;
+		DoublyNode* srcNode = srcList->head;
+		while (srcNode != NULL) {
+			dstNode->value = srcNode->value;
+			if (srcNode->next != NULL) {
+				DoublyNode* newDstNode = getNewDoublyNode();
+				dstNode->next = newDstNode;
+				dstNode = newDstNode;
+			}
+			srcNode = srcNode->next;
+		}
+	}
+	else {
+		dstList->head = NULL;
+	}
+}
+
