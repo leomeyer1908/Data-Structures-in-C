@@ -82,4 +82,18 @@ void destroyHashSet(HashSet* set) {
     set->size = 0;
 }
 
+void copyHashSet(HashSet* srcSet, HashSet* dstSet) {
+	dstSet->size = srcSet->size;
+	dstSet->capacity = srcSet->capacity;
+	dstSet->array = (LinkedList*) malloc(srcSet->capacity*sizeof(LinkedList));
+	for (int i = 0; i < srcSet->capacity; i++) {
+		copyList(&srcSet->array[i], &dstSet->array[i]);
+	}
+	copyList(&srcSet->keys, &dstSet->keys);
+}
 
+void getSetFromList(LinkedList* list, HashSet* set) {
+	for (DoublyNode* node = list->head; node != NULL; node = node->next) {
+		insertHashSet(set, (size_t) node->value);
+	}
+}

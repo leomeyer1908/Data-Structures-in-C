@@ -19,5 +19,7 @@ void removeNodeFromList(LinkedList* list, DoublyNode* node);
 
 void destroyList(LinkedList* list);
 
+void copyList(LinkedList* srcList, LinkedList* dstList);
+
 
 #endif

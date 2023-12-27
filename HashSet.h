@@ -18,4 +18,8 @@ int containsHashSet(HashSet* set, size_t key);
 void removeElementHashSet(HashSet* set, size_t key);
 void destroyHashSet(HashSet* set);
 
+void copyHashSet(HashSet* srcSet, HashSet* dstSet);
+
+void getSetFromList(LinkedList* list, HashSet* set);
+
 #endif
