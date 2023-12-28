@@ -10,15 +10,14 @@ void initList(LinkedList* list) {
 void pushBackList(LinkedList* list, void* value) {
     DoublyNode* newNode = getNewDoublyNode();
     newNode->value = value;
-    if (list->tail == NULL) {
+    if (list->head == NULL) {
         list->head = newNode;
-        list->tail = newNode;
     }
     else {
         newNode->prev = list->tail;
         list->tail->next = newNode;
-        list->tail = newNode;
     }
+    list->tail = newNode;
 }
 
 void removeNodeFromList(LinkedList* list, DoublyNode* node) {
@@ -73,12 +72,16 @@ void copyList(LinkedList* srcList, LinkedList* dstList) {
 				DoublyNode* newDstNode = getNewDoublyNode();
 				dstNode->next = newDstNode;
 				dstNode = newDstNode;
-			}
+			} 
+            else {
+                dstList->tail = dstNode;
+            }
 			srcNode = srcNode->next;
 		}
 	}
 	else {
 		dstList->head = NULL;
+        dstList->tail = NULL;
 	}
 }
 
