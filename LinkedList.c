@@ -10,17 +10,14 @@ void initList(LinkedList* list) {
 void pushBackList(LinkedList* list, void* value) {
     DoublyNode* newNode = getNewDoublyNode();
     newNode->value = value;
-    list->tail = newNode;
-    if (list->head == NULL) {
+    if (list->tail == NULL) {
         list->head = newNode;
+        list->tail = newNode;
     }
     else {
-        DoublyNode* currentNode = list->head;
-        while (currentNode->next != NULL) {
-            currentNode = currentNode->next;
-        }
-        currentNode->next = newNode;
-        newNode->prev = currentNode;
+        newNode->prev = list->tail;
+        list->tail->next = newNode;
+        list->tail = newNode;
     }
 }
 
