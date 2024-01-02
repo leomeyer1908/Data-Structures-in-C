@@ -1,10 +1,14 @@
 #include "HashSet.h"
 
-static size_t hashFunc(size_t key, size_t capacity) {
-    return key % capacity;
+static size_t defaultHashFunc(const void* key, const size_t capacity) {
+    return (size_t) key % capacity;
 }
 
-void initHashSet(HashSet* set, size_t initialCapacity) {
+static int defaultCmpFunc(const void* key1, const void* key2) {
+    return key1 == key2;
+}
+
+void initHashSet(HashSet* set, size_t initialCapacity, HashFunc hashFunc, CmpFunc cmpFunc) {
     set->size = 0;
     set->capacity = initialCapacity;
     set->array = (LinkedList*) malloc(initialCapacity*sizeof(LinkedList));
@@ -12,9 +16,12 @@ void initHashSet(HashSet* set, size_t initialCapacity) {
         initList(&(set->array[i]));
     }
     initList(&set->keys);
+
+    set->hashFunc = hashFunc != NULL ? hashFunc : &defaultHashFunc;
+    set->cmpFunc = cmpFunc != NULL ? cmpFunc : &defaultCmpFunc;
 }
 
-void insertHashSet(HashSet* set, size_t key) {
+void insertHashSet(HashSet* set, void* key) {
     if (containsHashSet(set, key)) {
         return;
     }
@@ -27,7 +34,7 @@ void insertHashSet(HashSet* set, size_t key) {
         }
 
         for (DoublyNode* currentNode = set->keys.head; currentNode != NULL; currentNode = currentNode->next) {
-            size_t index = hashFunc((size_t) (uintptr_t) currentNode->value, newCapacity);
+            size_t index = set->hashFunc((const void*) currentNode->value, (const size_t) newCapacity);
             pushBackList(&newArray[index], (void*) currentNode);
         }
 
@@ -40,30 +47,30 @@ void insertHashSet(HashSet* set, size_t key) {
         set->capacity = newCapacity;
     }
 
-    pushBackList(&set->keys, (void*) key);
+    pushBackList(&set->keys, key);
     DoublyNode* keyNode = set->keys.tail;
-    size_t index = hashFunc(key, set->capacity);
+    size_t index = set->hashFunc((const void*) key, (const size_t) set->capacity);
     pushBackList(&(set->array[index]), (void*) keyNode);
     set->size++;
 }
 
-int containsHashSet(HashSet* set, size_t key) {
-    size_t index = hashFunc(key, set->capacity);
+int containsHashSet(HashSet* set, void* key) {
+    size_t index = set->hashFunc((const void*) key, (const size_t) set->capacity);
     for (DoublyNode* currentNode = set->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
-        if ((size_t) (uintptr_t) ((DoublyNode*) currentNode->value)->value == key) {
+        if (set->cmpFunc((const void*) ((DoublyNode*) currentNode->value)->value, (const void*) key)) {
             return 1;
         }
     }
     return 0;
 }
 
-void removeElementHashSet(HashSet* set, size_t key) {
+void removeElementHashSet(HashSet* set, void* key) {
     if (!containsHashSet(set, key)) {
         return;
     }
-    size_t index = hashFunc(key, set->capacity);
+    size_t index = set->hashFunc((const void*) key, (const size_t) set->capacity);
     for (DoublyNode* currentNode = set->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
-        if ((size_t) (uintptr_t) ((DoublyNode*) currentNode->value)->value == key) {
+        if (set->cmpFunc((const void*) ((DoublyNode*) currentNode->value)->value, (const void*) key)) {
             removeNodeFromList(&set->keys, (DoublyNode*) currentNode->value);
             removeNodeFromList(&set->array[index], currentNode);
             set->size--;
@@ -80,6 +87,8 @@ void destroyHashSet(HashSet* set) {
     destroyList(&set->keys);
     set->capacity = 0;
     set->size = 0;
+    set->hashFunc = &defaultHashFunc;
+    set->cmpFunc = &defaultCmpFunc;
 }
 
 void copyHashSet(HashSet* srcSet, HashSet* dstSet) {
@@ -94,6 +103,6 @@ void copyHashSet(HashSet* srcSet, HashSet* dstSet) {
 
 void getSetFromList(LinkedList* list, HashSet* set) {
 	for (DoublyNode* node = list->head; node != NULL; node = node->next) {
-		insertHashSet(set, (size_t) node->value);
+		insertHashSet(set, node->value);
 	}
 }
