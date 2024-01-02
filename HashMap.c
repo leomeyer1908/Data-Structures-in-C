@@ -1,10 +1,14 @@
 #include "HashMap.h"
 
-static size_t hashFunc(size_t key, size_t capacity) {
-    return key % capacity;
+static size_t defaultHashFunc(const void* key, const size_t capacity) {
+    return (size_t) key % capacity;
 }
 
-void initHashMap(HashMap* map, size_t initialCapacity) {
+static int defaultCmpFunc(const void* key1, const void* key2) {
+    return key1 == key2;
+}
+
+void initHashMap(HashMap* map, size_t initialCapacity, HashFunc hashFunc, CmpFunc cmpFunc) {
     map->size = 0;
     map->capacity = initialCapacity;
     map->array = (LinkedList*) malloc(initialCapacity*sizeof(LinkedList));
@@ -12,9 +16,12 @@ void initHashMap(HashMap* map, size_t initialCapacity) {
         initList(&(map->array[i]));
     }
     initList(&map->keyValuePairs);
+
+    map->hashFunc = hashFunc != NULL ? hashFunc : &defaultHashFunc;
+    map->cmpFunc = cmpFunc != NULL ? cmpFunc : &defaultCmpFunc;
 }
 
-void insertHashMap(HashMap* map, size_t key, void* value) {
+void insertHashMap(HashMap* map, void* key, void* value) {
     if (containsHashMap(map, key)) {
         updateHashMap(map, key, value);
         return;
@@ -29,7 +36,7 @@ void insertHashMap(HashMap* map, size_t key, void* value) {
 
         for (DoublyNode* currentNode = map->keyValuePairs.head; currentNode != NULL; currentNode = currentNode->next) {
             KeyValuePair* currentKeyValuePair = (KeyValuePair*) currentNode->value;
-            size_t index = hashFunc(currentKeyValuePair->key, newCapacity);
+            size_t index = map->hashFunc((const void*) currentKeyValuePair->key, (const size_t) newCapacity);
             pushBackList(&newArray[index], (void*) currentNode);
         }
 
@@ -48,16 +55,17 @@ void insertHashMap(HashMap* map, size_t key, void* value) {
     pushBackList(&map->keyValuePairs, (void*) keyValuePair);
     DoublyNode* keyNode = map->keyValuePairs.tail;
 
-    size_t index = hashFunc(key, map->capacity);
+    size_t index = map->hashFunc((const void*) key, (const size_t) map->capacity);
     pushBackList(&(map->array[index]), (void*) keyNode);
 
     map->size++;
 }
 
-int updateHashMap(HashMap* map, size_t key, void* value) {
-    size_t index = hashFunc(key, map->capacity);
+int updateHashMap(HashMap* map, void* key, void* value) {
+    size_t index = map->hashFunc((const void*) key, (const size_t) map->capacity);
     for (DoublyNode* currentNode = map->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
-        if (((KeyValuePair*) ((DoublyNode*) currentNode->value)->value)->key == key) {
+        const void* currentKey = (const void*) ((KeyValuePair*) ((DoublyNode*) currentNode->value)->value)->key;
+        if (map->cmpFunc(currentKey, (const void*) key)) {
             ((KeyValuePair*) ((DoublyNode*) currentNode->value)->value)->value = value;
             return 0;
         }
@@ -65,33 +73,36 @@ int updateHashMap(HashMap* map, size_t key, void* value) {
     return -1;
 }
 
-int containsHashMap(HashMap* map, size_t key) {
-    size_t index = hashFunc(key, map->capacity);
+int containsHashMap(HashMap* map, void* key) {
+    size_t index = map->hashFunc((const void*) key, (const size_t) map->capacity);
     for (DoublyNode* currentNode = map->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
-        if (((KeyValuePair*) ((DoublyNode*) currentNode->value)->value)->key == key) {
+        const void* currentKey = (const void*) ((KeyValuePair*) ((DoublyNode*) currentNode->value)->value)->key;
+        if (map->cmpFunc(currentKey, (const void*) key)) {
             return 1;
         }
     }
     return 0;
 }
 
-void* getHashMap(HashMap* map, size_t key) {
-    size_t index = hashFunc(key, map->capacity);
+void* getHashMap(HashMap* map, void* key) {
+    size_t index = map->hashFunc((const void*) key, (const size_t) map->capacity);
     for (DoublyNode* currentNode = map->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
-        if (((KeyValuePair*) ((DoublyNode*) currentNode->value)->value)->key == key) {
+        const void* currentKey = (const void*) ((KeyValuePair*) ((DoublyNode*) currentNode->value)->value)->key;
+        if (map->cmpFunc(currentKey, (const void*) key)) {
             return ((KeyValuePair*) ((DoublyNode*) currentNode->value)->value)->value; 
         }
     }
     return NULL;
 }
 
-void removeElementHashMap(HashMap* map, size_t key) {
+void removeElementHashMap(HashMap* map, void* key) {
     if (!containsHashMap(map, key)) {
         return;
     }
-    size_t index = hashFunc(key, map->capacity);
+    size_t index = map->hashFunc((const void*) key, (const size_t) map->capacity);
     for (DoublyNode* currentNode = map->array[index].head; currentNode != NULL; currentNode = currentNode->next) {
-        if (((KeyValuePair*) ((DoublyNode*) currentNode->value)->value)->key == key) {
+        const void* currentKey = (const void*) ((KeyValuePair*) ((DoublyNode*) currentNode->value)->value)->key;
+        if (map->cmpFunc(currentKey, (const void*) key)) {
             free((KeyValuePair*) ((DoublyNode*) currentNode->value)->value);
             removeNodeFromList(&map->keyValuePairs, (DoublyNode*) currentNode->value);
             removeNodeFromList(&map->array[index], currentNode);
@@ -112,6 +123,8 @@ void destroyHashMap(HashMap* map) {
     destroyList(&map->keyValuePairs);
     map->capacity = 0;
     map->size = 0;
+    map->hashFunc = &defaultHashFunc;
+    map->cmpFunc = &defaultCmpFunc;
 }
 
 
