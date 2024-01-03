@@ -1,10 +1,9 @@
 #include "LinkedList.h"
 
-
-
 void initList(LinkedList* list) {
     list->head = NULL;
     list->tail = NULL;
+    list->size = 0;
 }
 
 void pushBackList(LinkedList* list, void* value) {
@@ -18,6 +17,8 @@ void pushBackList(LinkedList* list, void* value) {
         list->tail->next = newNode;
     }
     list->tail = newNode;
+
+    list->size++;
 }
 
 void removeNodeFromList(LinkedList* list, DoublyNode* node) {
@@ -35,6 +36,7 @@ void removeNodeFromList(LinkedList* list, DoublyNode* node) {
 
     free(node);
 
+    list->size--;
 }
 
 void removeElementList(LinkedList* list, void* value) {
@@ -59,6 +61,7 @@ void destroyList(LinkedList* list) {
 
     list->head = NULL;
     list->tail = NULL;
+    list->size = 0;
 }
 
 void copyList(LinkedList* srcList, LinkedList* dstList) {
@@ -78,10 +81,11 @@ void copyList(LinkedList* srcList, LinkedList* dstList) {
             }
 			srcNode = srcNode->next;
 		}
+        dstList->size = srcList->size;
 	}
 	else {
 		dstList->head = NULL;
         dstList->tail = NULL;
+        dstList->size = 0;
 	}
 }
-
