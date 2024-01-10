@@ -1,0 +1,53 @@
+Test Case: Empty Stack
+Top of stack: 0
+
+Test Case: Pushing elements to stack
+Pushing 10
+Top of stack: 10
+Pushing 20
+Top of stack: 20
+Pushing 30
+Top of stack: 30
+
+Test Case: Popping elements from the stack
+Popping:
+Top of stack: 20
+Popping:
+Top of stack: 10
+Popping:
+Top of stack: 0
+
+Test Case: Popping elements from an empty stack
+Popping:
+Top of stack: 0
+
+Test Case: Pushing and popping elements to stack again
+Pushing 10
+Top of stack: 10
+Pushing 20
+Top of stack: 20
+Pushing 30
+Top of stack: 30
+Popping:
+Top of stack: 20
+Popping:
+Top of stack: 10
+Popping:
+Top of stack: 0
+
+Test Case: Destroy Stack:
+Top of stack: 0
+
+Test Case: Pushing and popping elements to stack last time
+Pushing 10
+Top of stack: 10
+Pushing 20
+Top of stack: 20
+Pushing 30
+Top of stack: 30
+Popping:
+Top of stack: 20
+Popping:
+Top of stack: 10
+Popping:
+Top of stack: 0

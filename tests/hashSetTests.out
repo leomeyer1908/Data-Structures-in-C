@@ -1,0 +1,357 @@
+Test Case: Empty Set
+Size: 0
+Capacity: 7
+Keys:
+
+Test Case: Insert elements into set (42, 17, 8, 29, 55)
+Contains 42: 1
+Contains 17: 1
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Size: 5
+Capacity: 7
+Keys: 42, 17, 8, 29, 55
+
+Test Case: Remove element 17
+Contains 42: 1
+Contains 17: 0
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Size: 4
+Capacity: 7
+Keys: 42, 8, 29, 55
+
+Test Case: Remove non-existant element (99)
+Contains 42: 1
+Contains 17: 0
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Size: 4
+Capacity: 7
+Keys: 42, 8, 29, 55
+
+Test Case: Insert more elements to trigger resize (88, 13)
+Contains 42: 1
+Contains 17: 0
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Contains 88: 1
+Contains 13: 1
+Size: 6
+Capacity: 14
+Keys: 42, 8, 29, 55, 88, 13
+
+Test Case: Copy hash set
+Original Set:
+Contains 42: 1
+Contains 17: 0
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Contains 88: 1
+Contains 13: 1
+Size: 6
+Capacity: 14
+Keys: 42, 8, 29, 55, 88, 13
+New Set:
+Contains 42: 1
+Contains 17: 0
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Contains 88: 1
+Contains 13: 1
+Size: 6
+Capacity: 14
+Keys: 42, 8, 29, 55, 88, 13
+
+Test Case: Remove elements (42, 8) and insert new element (101) to old set
+Original Set:
+Contains 42: 0
+Contains 17: 0
+Contains 8: 0
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Contains 88: 1
+Contains 13: 1
+Contains 101: 1
+Size: 5
+Capacity: 14
+Keys: 29, 55, 88, 13, 101
+New Set:
+Contains 42: 1
+Contains 17: 0
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Contains 88: 1
+Contains 13: 1
+Contains 101: 0
+Size: 6
+Capacity: 14
+Keys: 42, 8, 29, 55, 88, 13
+
+Test Case: Destroy new set
+Original Set:
+Contains 42: 0
+Contains 17: 0
+Contains 8: 0
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Contains 88: 1
+Contains 13: 1
+Contains 101: 1
+Size: 5
+Capacity: 14
+Keys: 29, 55, 88, 13, 101
+New Set:
+Contains 42: 0
+Contains 17: 0
+Contains 8: 0
+Contains 29: 0
+Contains 55: 0
+Contains 99: 0
+Contains 88: 0
+Contains 13: 0
+Contains 101: 0
+Size: 0
+Capacity: 0
+Keys: 
+
+Test Case: Remove all keys from set
+Contains 42: 0
+Contains 17: 0
+Contains 8: 0
+Contains 29: 0
+Contains 55: 0
+Contains 99: 0
+Contains 88: 0
+Contains 13: 0
+Contains 101: 0
+Size: 0
+Capacity: 14
+Keys: 
+
+Test Case: insert duplicate to HashSet (200)
+First insert:
+Contains 42: 0
+Contains 17: 0
+Contains 8: 0
+Contains 29: 0
+Contains 55: 0
+Contains 99: 0
+Contains 88: 0
+Contains 13: 0
+Contains 101: 0
+Contains 200: 1
+Size: 1
+Capacity: 14
+Keys: 200
+Second insert:
+Contains 42: 0
+Contains 17: 0
+Contains 8: 0
+Contains 29: 0
+Contains 55: 0
+Contains 99: 0
+Contains 88: 0
+Contains 13: 0
+Contains 101: 0
+Contains 200: 1
+Size: 1
+Capacity: 14
+Keys: 200
+
+Test Case: Destroy HashSet
+Contains 42: 0
+Contains 17: 0
+Contains 8: 0
+Contains 29: 0
+Contains 55: 0
+Contains 99: 0
+Contains 88: 0
+Contains 13: 0
+Contains 101: 0
+Contains 200: 0
+Size: 0
+Capacity: 0
+Keys: 
+
+
+Custom Hash and Cmp Func Test
+Created immutable arrays A, B, C, D, and A2, B2, and C2. Check source code for more detail.
+
+Test Case: Insert keys (Arrays A, B, and C)
+Contains key A: Yes
+Contains key A2: Yes
+Contains key B: Yes
+Contains key B2: Yes
+Contains key C: Yes
+Contains key C2: Yes
+Contains key D: No
+Size: 3
+Capacity: 5
+
+Test Case: Remove Non-existant Array D
+Contains key A: Yes
+Contains key A2: Yes
+Contains key B: Yes
+Contains key B2: Yes
+Contains key C: Yes
+Contains key C2: Yes
+Contains key D: No
+Size: 3
+Capacity: 5
+
+Test Case: Insert Array D and remove Array B
+Contains key A: Yes
+Contains key A2: Yes
+Contains key B: No
+Contains key B2: No
+Contains key C: Yes
+Contains key C2: Yes
+Contains key D: Yes
+Size: 3
+Capacity: 5
+
+Test Case: Insert duplicate (Array C)
+Contains key A: Yes
+Contains key A2: Yes
+Contains key B: No
+Contains key B2: No
+Contains key C: Yes
+Contains key C2: Yes
+Contains key D: Yes
+Size: 3
+Capacity: 5
+
+Test Case: Copy HashMap with Custom Hash and Cmp
+Old Set Contains key A: Yes
+Old Set Contains key A2: Yes
+Old Set Contains key B: No
+Old Set Contains key B2: No
+Old Set Contains key C: Yes
+Old Set Contains key C2: Yes
+Old Set Contains key D: Yes
+Old Set Size: 3
+Old Set Capacity: 5
+New Set Contains key A: Yes
+New Set Contains key A2: Yes
+New Set Contains key B: No
+New Set Contains key B2: No
+New Set Contains key C: Yes
+New Set Contains key C2: Yes
+New Set Contains key D: Yes
+New Set Size: 3
+New Set Capacity: 5
+
+Test Case: Removing and inserting to old set does not affect new (Remove Array A2, C, and insert B2) 
+Old Set Contains key A: No
+Old Set Contains key A2: No
+Old Set Contains key B: Yes
+Old Set Contains key B2: Yes
+Old Set Contains key C: No
+Old Set Contains key C2: No
+Old Set Contains key D: Yes
+Old Set Size: 2
+Old Set Capacity: 5
+New Set Contains key A: Yes
+New Set Contains key A2: Yes
+New Set Contains key B: No
+New Set Contains key B2: No
+New Set Contains key C: Yes
+New Set Contains key C2: Yes
+New Set Contains key D: Yes
+New Set Size: 3
+New Set Capacity: 5
+
+Test Case: Destroy new set 
+Old Set Contains key A: No
+Old Set Contains key A2: No
+Old Set Contains key B: Yes
+Old Set Contains key B2: Yes
+Old Set Contains key C: No
+Old Set Contains key C2: No
+Old Set Contains key D: Yes
+Old Set Size: 2
+Old Set Capacity: 5
+New Set Contains key A: No
+New Set Contains key A2: No
+New Set Contains key B: No
+New Set Contains key B2: No
+New Set Contains key C: No
+New Set Contains key C2: No
+New Set Contains key D: No
+New Set Size: 0
+New Set Capacity: 0
+
+Test Case: Remove all keys
+Contains key A: No
+Contains key A2: No
+Contains key B: No
+Contains key B2: No
+Contains key C: No
+Contains key C2: No
+Contains key D: No
+Size: 0
+Capacity: 5
+
+Test Case: Destroy set
+
+Test Case: Make Set from list
+List:
+10, 20, 30, 40, 50
+Size: 5
+Set:
+Contains 10: 1
+Contains 20: 1
+Contains 30: 1
+Contains 40: 1
+Contains 50: 1
+Contains 60: 0
+Size: 5
+Capacity: 10
+Keys: 10, 20, 30, 40, 50
+
+Test Case: Removing elements (30, 40) and inserting (60) to list does not change set
+List:
+10, 20, 50, 60
+Size: 4
+Set:
+Contains 10: 1
+Contains 20: 1
+Contains 30: 1
+Contains 40: 1
+Contains 50: 1
+Contains 60: 0
+Size: 5
+Capacity: 10
+Keys: 10, 20, 30, 40, 50
+
+Test Case: Destroy List
+List:
+
+Size: 0
+Set:
+Contains 10: 1
+Contains 20: 1
+Contains 30: 1
+Contains 40: 1
+Contains 50: 1
+Contains 60: 0
+Size: 5
+Capacity: 10
+Keys: 10, 20, 30, 40, 50

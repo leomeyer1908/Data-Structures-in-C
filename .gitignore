@@ -1,5 +1,13 @@
 prog
+stackTest
+listTest
+setTest
+mapTest
 test.c
 .vscode
 prog.dSYM
+stackTest.dSYM
+listTest.dSYM
+setTest.dSYM
+mapTest.dSYM
 .DS_Store
