@@ -1,0 +1,81 @@
+Test Case: Empty List
+
+Size: 0
+
+Test Case: Push Back Elements (10, 20, 30, 40, 50)
+10, 20, 30, 40, 50
+Size: 5
+
+Test Case: Remove Element from the Middle 
+10, 20, 40, 50
+Size: 4
+
+Test Case: Remove Element from the Beginning
+20, 40, 50
+Size: 3
+
+Test Case: Remove Element from the End
+20, 40
+Size: 2
+
+Test Case: Copy List
+New List:
+20, 40
+New List Size: 2
+Old List:
+20, 40
+Old List Size: 2
+
+Test Case: Modifying old list does not affect new list
+Removing First 2 elements of old list then adding a new one:
+New List:
+20, 40
+New List Size: 2
+Old List:
+90
+Old List Size: 1
+
+Test Case: Modifying new list does not affect new list
+Destroying new list: 
+New List:
+
+New List Size: 0
+Old List:
+90
+Old List Size: 1
+
+Test Case: Adding duplicate elements then removing both
+90, 10, 10
+Size: 3
+90
+Size: 1
+
+Test Case: removing non existant element from list (10):
+90
+Size: 1
+
+Test Case: removing last element from list:
+
+Size: 0
+
+Test Case: removing element from empty list:
+
+Size: 0
+
+Test Case: Adding element and removing again one more time:
+10
+Size: 1
+
+Size: 0
+
+Test Case: Destroying list, then adding element and removing again:
+
+Size: 0
+10
+Size: 1
+
+Size: 0
+
+Test Case: Destroying list again:
+
+Size: 0

@@ -1,0 +1,368 @@
+Test Case: Empty Map
+Size: 0
+Capacity: 7
+Keys:
+
+Test Case: Insert elements into map (42, 17, 8, 29, 55)
+Contains 42: 1
+Contains 17: 1
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Get 42: Fourty-two
+Get 17: Seventeen
+Get 8: Eight
+Get 29: Twenty-Nine
+Get 55: Fifty-five
+Get 99: (null)
+Size: 5
+Capacity: 7
+Keys: 42: Fourty-two, 17: Seventeen, 8: Eight, 29: Twenty-Nine, 55: Fifty-five
+
+Test Case: Remove element 17
+Contains 42: 1
+Contains 17: 0
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Get 42: Fourty-two
+Get 17: (null)
+Get 8: Eight
+Get 29: Twenty-Nine
+Get 55: Fifty-five
+Get 99: (null)
+Size: 4
+Capacity: 7
+Keys: 42: Fourty-two, 8: Eight, 29: Twenty-Nine, 55: Fifty-five
+
+Test Case: Remove non-existant element (99)
+Contains 42: 1
+Contains 17: 0
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Get 42: Fourty-two
+Get 17: (null)
+Get 8: Eight
+Get 29: Twenty-Nine
+Get 55: Fifty-five
+Get 99: (null)
+Size: 4
+Capacity: 7
+Keys: 42: Fourty-two, 8: Eight, 29: Twenty-Nine, 55: Fifty-five
+
+Test Case: Insert more elements to trigger resize (88, 13)
+Contains 42: 1
+Contains 17: 0
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Contains 88: 1
+Contains 13: 1
+Get 42: Fourty-two
+Get 17: (null)
+Get 8: Eight
+Get 29: Twenty-Nine
+Get 55: Fifty-five
+Get 99: (null)
+Get 88: Eighty-eight
+Get 13: Thirteen
+Size: 6
+Capacity: 14
+Keys: 42: Fourty-two, 8: Eight, 29: Twenty-Nine, 55: Fifty-five, 88: Eighty-eight, 13: Thirteen
+
+Test Case: Update HashMap (8, 29, 55)
+Contains 42: 1
+Contains 17: 0
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Contains 88: 1
+Contains 13: 1
+Get 42: Fourty-two
+Get 17: (null)
+Get 8: Eight Updated
+Get 29: Twenty-Nine Updated
+Get 55: Fifty-Five Updated
+Get 99: (null)
+Get 88: Eighty-eight
+Get 13: Thirteen
+Size: 6
+Capacity: 14
+Keys: 42: Fourty-two, 8: Eight Updated, 29: Twenty-Nine Updated, 55: Fifty-Five Updated, 88: Eighty-eight, 13: Thirteen
+
+Test Case: Update Non-Existant Element (300)
+Contains 42: 1
+Contains 17: 0
+Contains 8: 1
+Contains 29: 1
+Contains 55: 1
+Contains 99: 0
+Contains 88: 1
+Contains 13: 1
+Contains 300: 0
+Get 42: Fourty-two
+Get 17: (null)
+Get 8: Eight Updated
+Get 29: Twenty-Nine Updated
+Get 55: Fifty-Five Updated
+Get 99: (null)
+Get 88: Eighty-eight
+Get 13: Thirteen
+Get 300: (null)
+Size: 6
+Capacity: 14
+Keys: 42: Fourty-two, 8: Eight Updated, 29: Twenty-Nine Updated, 55: Fifty-Five Updated, 88: Eighty-eight, 13: Thirteen
+
+Test Case: Remove all keys from map
+Contains 42: 0
+Contains 17: 0
+Contains 8: 0
+Contains 29: 0
+Contains 55: 0
+Contains 99: 0
+Contains 88: 0
+Contains 13: 0
+Contains 300: 0
+Get 42: (null)
+Get 17: (null)
+Get 8: (null)
+Get 29: (null)
+Get 55: (null)
+Get 99: (null)
+Get 88: (null)
+Get 13: (null)
+Get 300: (null)
+Size: 0
+Capacity: 14
+Keys: 
+
+Test Case: insert duplicate to HashMap (200)
+First insert:
+Contains 42: 0
+Contains 17: 0
+Contains 8: 0
+Contains 29: 0
+Contains 55: 0
+Contains 99: 0
+Contains 88: 0
+Contains 13: 0
+Contains 300: 0
+Contains 200: 1
+Get 42: (null)
+Get 17: (null)
+Get 8: (null)
+Get 29: (null)
+Get 55: (null)
+Get 99: (null)
+Get 88: (null)
+Get 13: (null)
+Get 300: (null)
+Get 200: Two-hundred
+Size: 1
+Capacity: 14
+Keys: 200: Two-hundred
+Second insert:
+Contains 42: 0
+Contains 17: 0
+Contains 8: 0
+Contains 29: 0
+Contains 55: 0
+Contains 99: 0
+Contains 88: 0
+Contains 13: 0
+Contains 300: 0
+Contains 200: 1
+Get 42: (null)
+Get 17: (null)
+Get 8: (null)
+Get 29: (null)
+Get 55: (null)
+Get 99: (null)
+Get 88: (null)
+Get 13: (null)
+Get 300: (null)
+Get 200: Two-hundred duplicate
+Size: 1
+Capacity: 14
+Keys: 200: Two-hundred duplicate
+
+Test Case: Destroy HashMap
+Contains 42: 0
+Contains 17: 0
+Contains 8: 0
+Contains 29: 0
+Contains 55: 0
+Contains 99: 0
+Contains 88: 0
+Contains 13: 0
+Contains 300: 0
+Contains 200: 0
+Get 42: (null)
+Get 17: (null)
+Get 8: (null)
+Get 29: (null)
+Get 55: (null)
+Get 99: (null)
+Get 88: (null)
+Get 13: (null)
+Get 300: (null)
+Get 200: (null)
+Size: 0
+Capacity: 0
+Keys: 
+
+
+Custom Hash and Cmp Func Test
+Created immutable arrays A, B, C, D, and A2, B2, and C2. Check source code for more detail.
+
+Test Case: Insert keys (Arrays A, B, and C)
+Contains key A: Yes
+Contains key A2: Yes
+Contains key B: Yes
+Contains key B2: Yes
+Contains key C: Yes
+Contains key C2: Yes
+Contains key D: No
+Get key A: A
+Get key A2: A
+Get key B: B
+Get key B2: B
+Get key C: C
+Get key C2: C
+Get key D: (null)
+Size: 3
+Capacity: 5
+
+Test Case: Remove Array D
+Contains key A: Yes
+Contains key A2: Yes
+Contains key B: Yes
+Contains key B2: Yes
+Contains key C: Yes
+Contains key C2: Yes
+Contains key D: No
+Get key A: A
+Get key A2: A
+Get key B: B
+Get key B2: B
+Get key C: C
+Get key C2: C
+Get key D: (null)
+Size: 3
+Capacity: 5
+
+Test Case: Insert Array D and remove Array B
+Contains key A: Yes
+Contains key A2: Yes
+Contains key B: No
+Contains key B2: No
+Contains key C: Yes
+Contains key C2: Yes
+Contains key D: Yes
+Get key A: A
+Get key A2: A
+Get key B: (null)
+Get key B2: (null)
+Get key C: C
+Get key C2: C
+Get key D: D
+Size: 3
+Capacity: 5
+
+Test Case: Insert duplicate (Array C)
+Contains key A: Yes
+Contains key A2: Yes
+Contains key B: No
+Contains key B2: No
+Contains key C: Yes
+Contains key C2: Yes
+Contains key D: Yes
+Get key A: A
+Get key A2: A
+Get key B: (null)
+Get key B2: (null)
+Get key C: C Duplicate
+Get key C2: C Duplicate
+Get key D: D
+Size: 3
+Capacity: 5
+
+Test Case: Update HashMap (A)
+Contains key A: Yes
+Contains key A2: Yes
+Contains key B: No
+Contains key B2: No
+Contains key C: Yes
+Contains key C2: Yes
+Contains key D: Yes
+Get key A: A Updated
+Get key A2: A Updated
+Get key B: (null)
+Get key B2: (null)
+Get key C: C Duplicate
+Get key C2: C Duplicate
+Get key D: D
+Size: 3
+Capacity: 5
+
+Test Case: Update Non-Existant Element (B2)
+Contains key A: Yes
+Contains key A2: Yes
+Contains key B: No
+Contains key B2: No
+Contains key C: Yes
+Contains key C2: Yes
+Contains key D: Yes
+Get key A: A Updated
+Get key A2: A Updated
+Get key B: (null)
+Get key B2: (null)
+Get key C: C Duplicate
+Get key C2: C Duplicate
+Get key D: D
+Size: 3
+Capacity: 5
+
+Test Case: Remove all keys
+Contains key A: No
+Contains key A2: No
+Contains key B: No
+Contains key B2: No
+Contains key C: No
+Contains key C2: No
+Contains key D: No
+Get key A: (null)
+Get key A2: (null)
+Get key B: (null)
+Get key B2: (null)
+Get key C: (null)
+Get key C2: (null)
+Get key D: (null)
+Size: 0
+Capacity: 5
+
+Test Case: Destroy map
+
+Test Case: Add the same value to different keys by adding keys 1 and 2 with a shared char*
+Contains 1: 1
+Contains 2: 1
+Get 1: value
+Get 2: value
+Size: 2
+Capacity: 5
+Keys: 1: value, 2: value
+
+Test Case: Changing value of one key will not change the value (changing key 1)
+Contains 1: 1
+Contains 2: 1
+Get 1: New Value
+Get 2: value
+Size: 2
+Capacity: 5
+Keys: 1: New Value, 2: value
